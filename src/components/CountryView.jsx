@@ -1,3 +1,5 @@
+import weatherService from '../services/weather'
+
 const CountryView = ({country}) => {
     const imgStyle = {
         width: '100px'

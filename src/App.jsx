@@ -2,14 +2,17 @@
 // 
 import { useState, useEffect } from 'react'
 import countriesService from './services/countries'
+import weatherService from './services/weather'
 import CountryView from './components/CountryView'
 import CountryItem from './components/CountryItem'
+import Weather from './components/Weather'
 
 function App() {
   const [filter, filterState] = useState('')
   const [countries, countriesState] = useState([])
   const [filteredCountries, filteredCountriesState] = useState([])
   const [shownCountry, shownCountryState] = useState(null)
+  const [weather, weatherState] = useState(null)
 
   useEffect(() => {
     (() => {
@@ -39,6 +42,14 @@ function App() {
       : null)
   },[filteredCountries])
 
+  useEffect(() => {
+    if(shownCountry) {
+      weatherService
+        .getWeather(shownCountry)
+        .then(data => weatherState(data))
+    }
+  },[shownCountry])
+
   const handleShow = (name) => {
     shownCountryState(filteredCountries
                         .find(country => country
@@ -61,6 +72,7 @@ function App() {
           : null
       }
       <CountryView country={shownCountry}/>
+      <Weather country={shownCountry} weather={weather}/>
     </>
   )
 }
