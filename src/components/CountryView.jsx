@@ -1,7 +1,9 @@
-const Country = ({country}) => {
+const CountryView = ({country}) => {
     const imgStyle = {
         width: '100px'
     }
+
+    if(!country) return null
 
     return (
         <>
@@ -21,4 +23,4 @@ const Country = ({country}) => {
 }
 
 
-export default Country
+export default CountryView
